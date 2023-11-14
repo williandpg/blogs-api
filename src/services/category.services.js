@@ -1,10 +1,10 @@
 const { Category } = require('../models');
 
-const findCategories = async () => {
+const getAllCategories = async () => {
   const categories = await Category.findAll();
-  return { status: 'SUCCESSFULL', data: categories };
+  return { status: 'SUCCESSFUL', data: categories };
 };
 
 module.exports = {
-  findCategories,
+  getAllCategories,
 };

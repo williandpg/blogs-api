@@ -13,14 +13,14 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        unique: true,
+        unique: true
       },
       password: {
         type: Sequelize.STRING
       },
       image: {
         type: Sequelize.STRING
-      },
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {

@@ -1,8 +1,8 @@
 const { User } = require('../models');
-const { generateToken } = require('../utils/index');
+const { generateToken } = require('../utils/jwt.utils.js');
 const loginSchema = require('../validations/joi.user.validations');
 
-const findUser = async (displayName, email, password, image) => {
+const getUser = async (displayName, email, password, image) => {
   const { error } = loginSchema.validate([{ displayName, email, password }]);
   if (error) {
     const status = error.details[0].message.split('&')[0];
@@ -19,21 +19,21 @@ const findUser = async (displayName, email, password, image) => {
   return { status: 'CREATED', data: { token } };
 };
 
-const findUsers = async () => {
+const getAllUsers = async () => {
   const users = await User.findAll({ attributes: { exclude: ['password'] } });
-  return { status: 'SUCCESSFULL', data: users };
+  return { status: 'SUCCESSFUL', data: users };
 };
 
-const findUserById = async (id) => {
+const getUserById = async (id) => {
   const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
   if (!user) {
     return { status: 'NOT_FOUND', data: { message: 'User does not exist' } };
   }
-  return { status: 'SUCCESSFULL', data: user };
+  return { status: 'SUCCESSFUL', data: user };
 };
 
 module.exports = {
-  findUser,
-  findUsers,
-  findUserById,
+  getUser,
+  getAllUsers,
+  getUserById,
 };

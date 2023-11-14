@@ -1,9 +1,9 @@
-const loginServices = require('./login.services');
-const userServices = require('./user.services');
-const categoryServices = require('./category.services');
+const loginService = require('./login.services');
+const userService = require('./user.services');
+const categoryService = require('./category.services');
 
 module.exports = {
-  loginServices,
-  userServices,
-  categoryServices,
+  loginService,
+  userService,
+  categoryService,
 };

@@ -1,20 +1,20 @@
 const { User } = require('../models');
-const { generateToken } = require('../utils/index');
+const { generateToken } = require('../utils/jwt.utils.js');
 
-const findLogin = async (email, password) => {
-  const user = await User.findOne({ 
-    where: { email, password }, 
-    attributes: { exclude: ['password'] } });
-  if (!user) {
-    return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
-  }
+const getLogin = async (email, password) => {
   if (!email || !password) {
     return { status: 'BAD_REQUEST', data: { message: 'Some required fields are missing' } };
   }
+  const user = await User.findOne(
+    { where: { email, password }, attributes: { exclude: ['password'] } },
+  );
+  if (!user) {
+    return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
+  }
   const token = generateToken({ user });
-  return { status: 'SUCCESSFULL', data: { token } };
+  return { status: 'SUCCESSFUL', data: { token } };
 };
 
 module.exports = {
-  findLogin,
+  getLogin,
 };

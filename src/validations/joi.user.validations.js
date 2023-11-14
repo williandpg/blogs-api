@@ -11,9 +11,6 @@ const loginSchema = Joi.array().items(
     password: Joi.string().min(6).required().messages({
       'string.min': 'BAD_REQUEST&"password" length must be at least 6 characters long',
     }),
-    image: Joi.string().required().messages({
-      'string.base': 'BAD_REQUEST&"image" must be a string',
-    }),
   }),
 );
 

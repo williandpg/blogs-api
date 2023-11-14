@@ -1,19 +1,19 @@
 const jwt = require('jsonwebtoken');
+const { userService } = require('../services');
 
 const SECRET_KEY = process.env.JWT_SECRET;
 
-const { userServices } = require('../services');
-
 const tokenSplit = (bearerToken) => bearerToken.split(' ')[1];
 
-const validateToken = async (req, res, next) => {
-  const token = req.header('Authorization');
-  if (!token) {
+const auth = async (req, res, next) => {
+  const bearerToken = req.header('Authorization');
+  if (!bearerToken) {
     return res.status(401).json({ message: 'Token not found' });
   }
+  const token = tokenSplit(bearerToken);
   try {
-    const decoded = jwt.verify(tokenSplit(token), SECRET_KEY);
-    const user = await userServices.findUserById(decoded.user.id);
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const user = await userService.getUserById(decoded.user.id);
     if (!user) {
       return res.status(401).json({ message: 'Expired or invalid token' });
     }
@@ -24,6 +24,4 @@ const validateToken = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  validateToken,
-};
+module.exports = auth;

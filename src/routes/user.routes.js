@@ -1,9 +1,9 @@
 const routes = require('express').Router();
-const { userControllers } = require('../controllers');
-const auth = require('../middlewares/auth');
+const { userController } = require('../controllers');
+const auth = require('../middlewares/auth.middlewares');
 
-routes.post('/', userControllers.getUser);
-routes.get('/', auth, userControllers.getUsers);
-routes.get('/:id', auth, userControllers.getUserById);
+routes.post('/', userController.getUser);
+routes.get('/', auth, userController.getAllUsers);
+routes.get('/:id', auth, userController.getUserById);
 
 module.exports = routes;
