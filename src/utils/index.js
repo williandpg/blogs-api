@@ -17,9 +17,9 @@ const httpMap = {
   SERVER_ERROR: 500,
 };
 
-const httpStatus = (status) => httpMap[status] || 500;
+const httpMapStatus = (status) => httpMap[status] || 500;
 
 module.exports = {
   generateToken,
-  httpStatus,
+  httpMapStatus,
 };

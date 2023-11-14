@@ -1,10 +1,9 @@
-const categoryServices = require('../services/index');
+const { categoryServices } = require('../services');
+const httpMapStatus = require('../utils/index');
 
 const getCategories = async (_req, res) => {
   const { status, data } = await categoryServices.findCategories();
-  if (status === 'SUCCESSFULL') {
-    return res.status(200).json(data);
-  }
+  return res.status(httpMapStatus(status)).json(data);
 };
 
 module.exports = {

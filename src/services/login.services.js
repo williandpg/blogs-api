@@ -1,8 +1,10 @@
 const { User } = require('../models');
-const { generateToken } = require('../utils');
+const { generateToken } = require('../utils/index');
 
 const findLogin = async (email, password) => {
-  const user = await User.findOne({ where: { email, password }, exclude: ['password'] });
+  const user = await User.findOne({ 
+    where: { email, password }, 
+    attributes: { exclude: ['password'] } });
   if (!user) {
     return { status: 'BAD_REQUEST', data: { message: 'Invalid fields' } };
   }

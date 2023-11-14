@@ -22,10 +22,12 @@ module.exports = {
         }
       },
       published: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false,
       },
       updated: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },

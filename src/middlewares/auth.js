@@ -7,13 +7,13 @@ const { userServices } = require('../services');
 const tokenSplit = (bearerToken) => bearerToken.split(' ')[1];
 
 const validateToken = async (req, res, next) => {
-  const token = req.headers.authorization;
+  const token = req.header('Authorization');
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   }
   try {
     const decoded = jwt.verify(tokenSplit(token), SECRET_KEY);
-    const user = await userServices.findUser(decoded.user.id);
+    const user = await userServices.findUserById(decoded.user.id);
     if (!user) {
       return res.status(401).json({ message: 'Expired or invalid token' });
     }
